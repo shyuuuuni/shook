@@ -44,7 +44,7 @@ globalStyle('blockquote, q', {
   quotes: 'none',
 });
 
-globalStyle('blockquote: before, blockquote: after, q: before, q: after', {
+globalStyle('blockquote:before, blockquote:after, q:before, q:after', {
   content: 'none',
 });
 
