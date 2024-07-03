@@ -1,6 +1,7 @@
-import { globalStyle } from "@vanilla-extract/css";
+import { globalStyle } from '@vanilla-extract/css';
 
-globalStyle(`html, body, div, span, applet, object, iframe,
+globalStyle(
+  `html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
   del, dfn, em, img, ins, kbd, q, s, samp,
@@ -20,19 +21,23 @@ globalStyle(`html, body, div, span, applet, object, iframe,
     fontSize: '100%',
     font: 'inherit',
     verticalAlign: 'baseline',
-  });
+  },
+);
 
-globalStyle(`article, aside, details, figcaption, figure,
-  footer, header, hgroup, menu, nav, section`, {
-  display: 'block'
-});
+globalStyle(
+  `article, aside, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section`,
+  {
+    display: 'block',
+  },
+);
 
 globalStyle('body', {
   lineHeight: 1,
 });
 
 globalStyle('ol, ul', {
-  listStyle: 'none'
+  listStyle: 'none',
 });
 
 globalStyle('blockquote, q', {
@@ -40,10 +45,10 @@ globalStyle('blockquote, q', {
 });
 
 globalStyle('blockquote: before, blockquote: after, q: before, q: after', {
-  content: 'none'
+  content: 'none',
 });
 
 globalStyle('table', {
   borderCollapse: 'collapse',
-  borderSpacing: 0
-})
+  borderSpacing: 0,
+});
