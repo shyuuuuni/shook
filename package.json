@@ -14,8 +14,11 @@
     "npm": "^10"
   },
   "dependencies": {
+    "@octokit/plugin-rest-endpoint-methods": "^13.2.4",
+    "@octokit/types": "^13.5.0",
     "@vanilla-extract/css": "^1.15.3",
     "next": "14.2.4",
+    "octokit": "^4.0.2",
     "react": "^18",
     "react-dom": "^18"
   },
