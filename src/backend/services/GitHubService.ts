@@ -1,5 +1,6 @@
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
 import { Octokit } from 'octokit';
+import { GitHubCommit, GitHubPullRequest, GitHubRepo } from '@/types/github';
 
 class GitHubService {
   octokit: Octokit;
@@ -11,7 +12,9 @@ class GitHubService {
   async getRepoListForUser({
     username,
     ...options
-  }: RestEndpointMethodTypes['repos']['listForUser']['parameters']) {
+  }: RestEndpointMethodTypes['repos']['listForUser']['parameters']): Promise<
+    GitHubRepo[]
+  > {
     const response = await this.octokit.rest.repos.listForUser({
       username,
       ...options,
@@ -26,7 +29,9 @@ class GitHubService {
     repo,
     state = 'all', // 설정하지 않을 경우 'open' 값 사용
     ...options
-  }: RestEndpointMethodTypes['pulls']['list']['parameters']) {
+  }: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<
+    GitHubPullRequest[]
+  > {
     const response = await this.octokit.rest.pulls.list({
       owner,
       repo,
@@ -42,7 +47,9 @@ class GitHubService {
     owner,
     repo,
     ...options
-  }: RestEndpointMethodTypes['repos']['listCommits']['parameters']) {
+  }: RestEndpointMethodTypes['repos']['listCommits']['parameters']): Promise<
+    GitHubCommit[]
+  > {
     const response = await this.octokit.rest.repos.listCommits({
       owner,
       repo,
