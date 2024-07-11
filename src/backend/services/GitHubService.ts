@@ -3,7 +3,7 @@ import { Octokit } from 'octokit';
 import { GitHubCommit, GitHubPullRequest, GitHubRepo } from '@/types/github';
 
 class GitHubService {
-  octokit: Octokit;
+  private octokit: Octokit;
 
   constructor() {
     this.octokit = new Octokit({});
