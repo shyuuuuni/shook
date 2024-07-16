@@ -8,7 +8,9 @@ type ReposPageProps = {
   };
 };
 
-export default async function Page({ params: { username } }: ReposPageProps) {
+export default async function ReposPage({
+  params: { username },
+}: ReposPageProps) {
   const repoList = await gitHubService.getRepoListForUser({
     username,
   });
@@ -21,7 +23,7 @@ export default async function Page({ params: { username } }: ReposPageProps) {
           <Link
             className={styles.link}
             key={repo.id}
-            href={`/repos/${username}/${repo.name}/commits`}
+            href={`/repos/${username}/${repo.name}`}
           >
             <li className={styles.listItem}>{repo.name}</li>
           </Link>

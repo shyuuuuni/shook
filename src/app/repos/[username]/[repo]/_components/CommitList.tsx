@@ -10,7 +10,7 @@ export default function CommitList({ commitList }: CommitListProps) {
     <ul>
       {commitList.map((commit) => (
         <li className={styles.listItem} key={commit.sha}>
-          <input className={styles.checkbox} type="checkbox" defaultChecked />
+          {/* <input className={styles.checkbox} type="checkbox" defaultChecked /> */}
           {commit.commit.message}
           <a
             className={styles.link}
