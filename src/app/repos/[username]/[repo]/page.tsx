@@ -5,6 +5,7 @@ import { match } from 'ts-pattern';
 import Skeleton from '@/components/Skeleton';
 import * as styles from './RepoPage.css';
 import CommitPhase from './_components/CommitPhase';
+import FilterPhase from './_components/FilterPhase';
 import usePhase from './_hooks/usePhase';
 import usePhaseState from './_hooks/usePhaseState';
 
@@ -19,7 +20,7 @@ export default function RepoPage({
   params: { username, repo },
 }: RepoPageProps) {
   const [phase, setPhase] = usePhase();
-  const phaseState = usePhaseState();
+  const phaseState = usePhaseState({ username, repo });
 
   return (
     <main className={styles.main}>
@@ -27,13 +28,16 @@ export default function RepoPage({
         {match(phase)
           .with('commit', () => (
             <CommitPhase
-              username={username}
-              repo={repo}
               phaseState={phaseState}
               onNext={() => setPhase('filter')}
             />
           ))
-          .with('filter', () => <></>)
+          .with('filter', () => (
+            <FilterPhase
+              phaseState={phaseState}
+              onNext={() => setPhase('analyze')}
+            />
+          ))
           .with('analyze', () => <></>)
           .exhaustive()}
       </Suspense>

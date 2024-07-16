@@ -7,25 +7,17 @@ import CommitList from './CommitList';
 import * as styles from './CommitPhase.css';
 
 type CommitPhaseProps = {
-  username: string;
-  repo: string;
   phaseState: React.MutableRefObject<PhaseState>;
   onNext: () => void;
 };
 
-export default function CommitPhase({
-  username,
-  repo,
-  phaseState,
-  onNext,
-}: CommitPhaseProps) {
+export default function CommitPhase({ phaseState, onNext }: CommitPhaseProps) {
+  const { username, repo } = phaseState.current;
   const commitListQuery = useCommitList({ username, repo });
   const commitList = commitListQuery.data ?? [];
 
   useEffect(() => {
     phaseState.current.commitList = commitList;
-
-    console.log(phaseState);
   }, [phaseState, commitList]);
 
   return (
