@@ -6,7 +6,9 @@ class GitHubService {
   private octokit: Octokit;
 
   constructor() {
-    this.octokit = new Octokit({});
+    this.octokit = new Octokit({
+      auth: process.env.GITHUB_AUTH_TOKEN,
+    });
   }
 
   async getRepoListForUser({
