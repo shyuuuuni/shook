@@ -2,6 +2,7 @@ import { z } from 'zod';
 import {
   chatCompletionResponseSchema,
   commitGroupSchema,
+  filterResultSchema,
 } from './clovaStudio.schema';
 
 export type HyperClovaXModel = 'HCX-003' | 'HCX-DASH-001';
@@ -38,3 +39,4 @@ export type ChatCompletionResponse = z.infer<
   typeof chatCompletionResponseSchema
 >;
 export type CommitGroup = z.infer<typeof commitGroupSchema>[number];
+export type FilterResult = z.infer<typeof filterResultSchema>;

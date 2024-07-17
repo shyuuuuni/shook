@@ -31,3 +31,6 @@ export const commitGroupSchema = z.array(
     description: z.array(z.string()),
   }),
 );
+export const filterResultSchema = z.object({
+  isEffective: z.boolean(),
+});
