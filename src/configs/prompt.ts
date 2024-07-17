@@ -52,3 +52,23 @@ export const filterCommitGroupPrompt = `- GitHub 커밋 묶음에 대한 정보�
 {
 "isEffective": "true" 또는 "false"
 }`;
+
+/**
+ * @token 114
+ * @description 커밋 묶음을 분석하여 사용자의 성과를 글로 표현하는 프롬프트
+ */
+export const analyzeResultPrompt = `- GitHub 커밋 묶음에 대한 데이터를 기반으로, 사용자의 성과를 글로 표현해야 합니다.
+- 개발자 이력서에 포함할 주요 성과 목록을 보여주는 글을 작성합니다.
+- 당신은 json 파일 형식에 대해 잘 알고 있습니다.
+- 사용자가 입력하는 데이터는 다음 json 데이터와 같습니다. 
+[
+{
+"taskTitle": "주요 작업 제목",
+"description": [
+"세부 커밋 내용1",
+"세부 커밋 내용2",
+...
+]
+},
+...
+]`;
