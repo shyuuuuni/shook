@@ -1,6 +1,11 @@
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
 import { Octokit } from 'octokit';
-import { GitHubCommit, GitHubPullRequest, GitHubRepo } from '@/types/github';
+import {
+  GitHubCommit,
+  GitHubPullRequest,
+  GitHubRepository,
+  GitHubUser,
+} from '@/types/github';
 
 class GitHubService {
   private octokit: Octokit;
@@ -14,9 +19,7 @@ class GitHubService {
   async getUserByUsername({
     username,
     ...options
-  }: RestEndpointMethodTypes['users']['getByUsername']['parameters']): Promise<
-    RestEndpointMethodTypes['users']['getByUsername']['response']['data']
-  > {
+  }: RestEndpointMethodTypes['users']['getByUsername']['parameters']): Promise<GitHubUser> {
     const response = await this.octokit.rest.users.getByUsername({
       username,
       ...options,
@@ -26,11 +29,11 @@ class GitHubService {
     return user;
   }
 
-  async getRepoListForUser({
+  async getRepositoryListByUser({
     username,
     ...options
   }: RestEndpointMethodTypes['repos']['listForUser']['parameters']): Promise<
-    GitHubRepo[]
+    GitHubRepository[]
   > {
     const response = await this.octokit.rest.repos.listForUser({
       username,
