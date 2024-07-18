@@ -11,6 +11,21 @@ class GitHubService {
     });
   }
 
+  async getUserByUsername({
+    username,
+    ...options
+  }: RestEndpointMethodTypes['users']['getByUsername']['parameters']): Promise<
+    RestEndpointMethodTypes['users']['getByUsername']['response']['data']
+  > {
+    const response = await this.octokit.rest.users.getByUsername({
+      username,
+      ...options,
+    });
+    const user = response.data;
+
+    return user;
+  }
+
   async getRepoListForUser({
     username,
     ...options
