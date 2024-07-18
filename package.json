@@ -16,6 +16,7 @@
   "dependencies": {
     "@octokit/plugin-rest-endpoint-methods": "^13.2.4",
     "@octokit/types": "^13.5.0",
+    "@radix-ui/react-tabs": "^1.1.0",
     "@tanstack/react-query": "^5.51.1",
     "@vanilla-extract/css": "^1.15.3",
     "clsx": "^2.1.1",
