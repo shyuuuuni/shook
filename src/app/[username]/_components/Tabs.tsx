@@ -8,7 +8,7 @@ const tabList: {
   label: string;
 }[] = [
   { tabType: 'repository', label: 'Repository' },
-  { tabType: 'readme', label: 'Readme' },
+  { tabType: 'insight', label: 'Insight' },
   { tabType: 'activity', label: 'Activity' },
 ];
 

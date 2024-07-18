@@ -14,8 +14,8 @@ export default function TabContent() {
         <RepositoryOverview />
       </ReactTabs.TabsContent>
     ))
-    .with('readme', () => (
-      <ReactTabs.TabsContent value={'readme'}>readme</ReactTabs.TabsContent>
+    .with('insight', () => (
+      <ReactTabs.TabsContent value={'insight'}>readme</ReactTabs.TabsContent>
     ))
     .with('activity', () => (
       <ReactTabs.TabsContent value={'activity'}>activity</ReactTabs.TabsContent>
