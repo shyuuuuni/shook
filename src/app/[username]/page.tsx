@@ -1,4 +1,5 @@
 import TabContent from './_components/TabContent';
+import TabContentPrefetch from './_components/TabContentPrefetch';
 import TabProvider from './_components/TabProvider';
 import Tabs from './_components/Tabs';
 import { ProfileSection } from './_components/profile';
@@ -11,14 +12,16 @@ type UserPageProps = {
 
 export default function UserPage({ params: { username } }: UserPageProps) {
   return (
-    <main>
+    <div>
       <ProfileSection username={username} />
-      <section>
-        <TabProvider>
+      <main>
+        <TabProvider username={username}>
           <Tabs />
-          <TabContent />
+          <TabContentPrefetch username={username}>
+            <TabContent />
+          </TabContentPrefetch>
         </TabProvider>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }

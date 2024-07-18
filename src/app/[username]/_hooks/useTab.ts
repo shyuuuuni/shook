@@ -1,16 +1,16 @@
 import { createContext, useContext } from 'react';
-import { isTab, TabContext as TabContextType } from '../_types/tab';
+import { isTab, Tab } from '../_types/tab';
 
-export const TabContext = createContext<null | TabContextType>(null);
+export const TabContext = createContext<Tab>('repository');
 
 const useTab = () => {
-  const tabContext = useContext(TabContext);
+  const tab = useContext(TabContext);
 
-  if (!isTab(tabContext?.tab)) {
+  if (!isTab(tab)) {
     throw new Error('useTab must be used within a TabProvider');
   }
 
-  return { tab: tabContext.tab, setTab: tabContext.setTab };
+  return tab;
 };
 
 export default useTab;
