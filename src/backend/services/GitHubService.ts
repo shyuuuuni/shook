@@ -63,19 +63,23 @@ class GitHubService {
     return pullRequestList;
   }
 
-  async getCommitList({
+  async getCommitListAll({
     owner,
     repo,
     ...options
   }: RestEndpointMethodTypes['repos']['listCommits']['parameters']): Promise<
     GitHubCommit[]
   > {
-    const response = await this.octokit.rest.repos.listCommits({
-      owner,
-      repo,
-      ...options,
-    });
-    const commitList = response.data;
+    const commitList = await this.octokit.paginate(
+      this.octokit.rest.repos.listCommits,
+      {
+        owner,
+        repo,
+        per_page: 100,
+        ...options,
+      },
+      (response) => response.data,
+    );
 
     return commitList;
   }

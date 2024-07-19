@@ -3,7 +3,11 @@ import gitHubService from '@/backend/services/GitHubService';
 import { GitHubRepository } from '@/types/github';
 
 export const gitHubQueryKeys = {
-  repositories: (username: string) => ['user', 'repository', { username }],
+  repositories: (username: string): QueryKey => [
+    'gitHub',
+    'repository',
+    { username },
+  ],
 };
 
 export const gitHubQueryOptions = {

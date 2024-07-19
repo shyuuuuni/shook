@@ -4,6 +4,7 @@ import * as ReactTabs from '@radix-ui/react-tabs';
 import { match } from 'ts-pattern';
 import useTab from '../_hooks/useTab';
 import RepositoryOverview from './RepositoryOverview';
+import UserActivities from './UserActivities';
 
 export default function TabContent() {
   const tab = useTab();
@@ -18,7 +19,9 @@ export default function TabContent() {
       <ReactTabs.TabsContent value={'insight'}>readme</ReactTabs.TabsContent>
     ))
     .with('activity', () => (
-      <ReactTabs.TabsContent value={'activity'}>activity</ReactTabs.TabsContent>
+      <ReactTabs.TabsContent value={'activity'}>
+        <UserActivities />
+      </ReactTabs.TabsContent>
     ))
     .exhaustive();
 }

@@ -1,13 +1,8 @@
 import {
   ChatCompletionRequest,
   ChatMessage,
-  CommitGroup,
   HyperClovaXModel,
 } from '@/types/clovaStudio';
-import {
-  chatCompletionResponseSchema,
-  commitGroupSchema,
-} from '@/types/clovaStudio.schema';
 
 class ClovaStudioService {
   private baseUrl: string;
@@ -39,7 +34,7 @@ class ClovaStudioService {
     prompts: string;
     systemPrompts?: string[];
     streaming?: boolean;
-  } & Omit<ChatCompletionRequest['Body'], 'messages'>): Promise<CommitGroup[]> {
+  } & Omit<ChatCompletionRequest['Body'], 'messages'>) {
     const apiUrl = `${this.baseUrl}/v1/chat-completions/${model}`;
     const requestHeader: ChatCompletionRequest['Header'] = {
       'X-NCP-CLOVASTUDIO-API-KEY': this.apiKey,
@@ -63,51 +58,11 @@ class ClovaStudioService {
         messages: [...systemMessages, userMessage],
         ...bodyOptions,
       }),
+      cache: 'no-store',
     });
     const body = await response.json();
-    const chatCompletionResponse = chatCompletionResponseSchema.parse(body);
-    const data = commitGroupSchema.parse(
-      JSON.parse(chatCompletionResponse.result.message.content),
-    );
 
-    return data;
-  }
-
-  // TODO: 테스트를 위한 토큰 계산 API
-  async getChatTokenize({
-    model,
-    prompts,
-    systemPrompts = [],
-  }: {
-    model: HyperClovaXModel;
-    prompts: string;
-    systemPrompts?: string[];
-  }) {
-    const apiUrl = `${this.baseUrl}/v1/api-tools/chat-tokenize/${model}`;
-    const requestHeader: ChatCompletionRequest['Header'] = {
-      'X-NCP-CLOVASTUDIO-API-KEY': this.apiKey,
-      'X-NCP-APIGW-API-KEY': this.gwApiKey,
-      'Content-Type': 'application/json',
-    };
-    const systemMessages: ChatMessage[] = systemPrompts.map((prompt) => ({
-      role: 'system',
-      content: prompt,
-    }));
-    const userMessage: ChatMessage = {
-      role: 'user',
-      content: prompts,
-    };
-
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: requestHeader,
-      body: JSON.stringify({
-        messages: [...systemMessages, userMessage],
-      }),
-    });
-    const data = await response.json();
-
-    return data;
+    return body;
   }
 }
 

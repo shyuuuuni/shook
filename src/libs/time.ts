@@ -7,3 +7,6 @@ export const formatISODateToYYYYMMDD = (isoData: string) => {
   const date = new Date(isoData);
   return `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}`;
 };
+// 주어진 ms 시간동안 대기합니다.
+export const sleep = (sleepMs: number) =>
+  new Promise((resolve) => setTimeout(resolve, sleepMs));
