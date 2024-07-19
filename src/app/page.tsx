@@ -10,7 +10,7 @@ export default function Page() {
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    router.push(`/repos/${username}`);
+    router.push(`/${username}`);
   };
 
   const handleChangeUsername: ChangeEventHandler<HTMLInputElement> = (e) => {
