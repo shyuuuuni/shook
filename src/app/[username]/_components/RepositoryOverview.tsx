@@ -2,18 +2,17 @@
 
 import { useRepositories } from '../_hooks/useGitHubQuery';
 import useUsername from '../_hooks/useUsername';
+import RepositoryArticle from './RepositoryArticle';
+import * as styles from './RepositoryOverview.css';
 
 export default function RepositoryOverview() {
   const username = useUsername();
   const { data: repositories } = useRepositories(username);
 
   return (
-    <section>
+    <section className={styles.container}>
       {repositories?.map((repository) => (
-        <article key={repository.id}>
-          <h2>{repository.name}</h2>
-          <p>{repository.description}</p>
-        </article>
+        <RepositoryArticle key={repository.id} repository={repository} />
       ))}
     </section>
   );
