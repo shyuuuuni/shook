@@ -3,5 +3,8 @@ declare namespace NodeJS {
     NCP_CLOVA_STUDIO_API_KEY: string;
     NCP_API_GW_API_KEY: string;
     GITHUB_AUTH_TOKEN: string;
+
+    // Vercel Environments
+    VERCEL_URL: string;
   }
 }
