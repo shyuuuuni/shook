@@ -1,8 +1,4 @@
-import { globalStyle, style } from '@vanilla-extract/css';
-
-globalStyle('button, fieldset, input', {
-  all: 'unset',
-});
+import { style } from '@vanilla-extract/css';
 
 export const tabsList = style({
   flexShrink: 0,

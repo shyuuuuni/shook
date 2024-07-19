@@ -58,3 +58,7 @@ globalStyle('a', {
   outline: 'none',
   color: 'inherit',
 });
+
+globalStyle('button, fieldset, input', {
+  all: 'unset',
+});
