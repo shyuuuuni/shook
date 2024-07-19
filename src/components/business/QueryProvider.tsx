@@ -9,7 +9,11 @@ export default function QueryProvider({ children }: QueryProviderProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
-        defaultOptions: {},
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
       }),
   );
 
