@@ -2,6 +2,7 @@
 
 import type { Tab as TabType } from '../_types/tab';
 import * as ReactTabs from '@radix-ui/react-tabs';
+import * as styles from './Tabs.css';
 
 const tabList: {
   tabType: TabType;
@@ -14,9 +15,13 @@ const tabList: {
 
 export default function Tabs() {
   return (
-    <ReactTabs.TabsList>
+    <ReactTabs.TabsList className={styles.tabsList}>
       {tabList.map(({ tabType, label }) => (
-        <ReactTabs.TabsTrigger key={tabType} value={tabType}>
+        <ReactTabs.TabsTrigger
+          className={styles.tabsTrigger}
+          key={tabType}
+          value={tabType}
+        >
           {label}
         </ReactTabs.TabsTrigger>
       ))}
