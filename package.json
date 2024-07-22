@@ -14,6 +14,7 @@
     "npm": "^10"
   },
   "dependencies": {
+    "@octokit/graphql": "^8.1.1",
     "@octokit/plugin-rest-endpoint-methods": "^13.2.4",
     "@octokit/types": "^13.5.0",
     "@radix-ui/react-avatar": "^1.1.0",
