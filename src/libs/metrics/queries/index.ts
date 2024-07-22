@@ -21,3 +21,11 @@ export { default as QUERY_COMMIT_FIRST } from './commits/first.graphql';
 export { default as QUERY_DISCUSSIONS_CATEGORIES } from './discussions/categories.graphql';
 export { default as QUERY_DISCUSSIONS_COMMENTS } from './discussions/comments.graphql';
 export { default as QUERY_DISCUSSIONS_STATISTICS } from './discussions/statistics.graphql';
+
+// followup
+export { default as QUERY_FOLLOWUP_REPOSITORY_COLLABORATORS } from './followup/repository.collaborators.graphql';
+
+// licenses
+export { default as QUERY_LICENSES_DEFAULT } from './licenses/licenses.graphql';
+export { default as QUERY_LICENSES_ORGANIZATION } from './licenses/licenses.organization.graphql';
+export { default as QUERY_LICENSES_USER } from './licenses/licenses.user.graphql';
