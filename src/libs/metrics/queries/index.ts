@@ -13,3 +13,11 @@ export { default as QUERY_BASE_REPOSITORIES } from './base/repositories.graphql'
 export { default as QUERY_BASE_REPOSITORY } from './base/repository.graphql';
 export { default as QUERY_BASE_USER } from './base/user.graphql';
 export { default as QUERY_BASE_USER_DETAIL } from './base/user.detail.graphql';
+
+// commits
+export { default as QUERY_COMMIT_FIRST } from './commits/first.graphql';
+
+// discussions
+export { default as QUERY_DISCUSSIONS_CATEGORIES } from './discussions/categories.graphql';
+export { default as QUERY_DISCUSSIONS_COMMENTS } from './discussions/comments.graphql';
+export { default as QUERY_DISCUSSIONS_STATISTICS } from './discussions/statistics.graphql';
