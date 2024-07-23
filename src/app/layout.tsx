@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import QueryProvider from '@/components/business/QueryProvider';
+import GitHubRateLimit from '@/components/github/GitHubRateLimit';
 
 import '@/styles/globals.css';
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={notoSansKr.className}>
         <QueryProvider>{children}</QueryProvider>
+        <GitHubRateLimit />
       </body>
     </html>
   );
