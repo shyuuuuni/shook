@@ -1,7 +1,10 @@
-import gitHubService from '@/backend/services/GitHubService';
+import GitHubService from '@/backend/services/GitHubService';
+import { getAccessToken } from '@/libs/next-auth';
 import * as styles from './GitHubRateLimit.css';
 
 export default async function GitHubRateLimit() {
+  const accessToken = await getAccessToken();
+  const gitHubService = new GitHubService(accessToken);
   const { core, graphql } = await gitHubService.getRateLimit();
 
   const restRemaining = core.remaining;

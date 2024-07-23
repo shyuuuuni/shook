@@ -1,6 +1,7 @@
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
+import { graphql } from '@octokit/graphql';
+import { graphql as Graphql } from '@octokit/graphql/types';
 import { Octokit } from 'octokit';
-import { rest } from '@/configs/github';
 import {
   GitHubCommit,
   GitHubPullRequest,
@@ -9,16 +10,22 @@ import {
 } from '@/types/github';
 
 class GitHubService {
-  private octokit: Octokit;
+  private rest: Octokit['rest'];
+  private graphql: Graphql;
 
-  constructor(octokit: Octokit) {
-    this.octokit = octokit;
+  constructor(gitHubToken: string) {
+    this.rest = new Octokit({ auth: gitHubToken }).rest;
+    this.graphql = graphql.defaults({
+      headers: {
+        authorization: `token ${process.env.GITHUB_AUTH_TOKEN}`,
+      },
+    });
   }
 
   async getRateLimit(): Promise<
     RestEndpointMethodTypes['rateLimit']['get']['response']['data']['resources']
   > {
-    const response = await this.octokit.rest.rateLimit.get();
+    const response = await this.rest.rateLimit.get();
     const rateLimit = response.data.resources;
 
     return rateLimit;
@@ -28,7 +35,7 @@ class GitHubService {
     username,
     ...options
   }: RestEndpointMethodTypes['users']['getByUsername']['parameters']): Promise<GitHubUser> {
-    const response = await this.octokit.rest.users.getByUsername({
+    const response = await this.rest.users.getByUsername({
       username,
       ...options,
     });
@@ -43,7 +50,7 @@ class GitHubService {
   }: RestEndpointMethodTypes['repos']['listForUser']['parameters']): Promise<
     GitHubRepository[]
   > {
-    const response = await this.octokit.rest.repos.listForUser({
+    const response = await this.rest.repos.listForUser({
       username,
       ...options,
     });
@@ -60,7 +67,7 @@ class GitHubService {
   }: RestEndpointMethodTypes['pulls']['list']['parameters']): Promise<
     GitHubPullRequest[]
   > {
-    const response = await this.octokit.rest.pulls.list({
+    const response = await this.rest.pulls.list({
       owner,
       repo,
       state,
@@ -78,7 +85,7 @@ class GitHubService {
   }: RestEndpointMethodTypes['repos']['listCommits']['parameters']): Promise<
     GitHubCommit[]
   > {
-    const response = await this.octokit.rest.repos.listCommits({
+    const response = await this.rest.repos.listCommits({
       owner,
       repo,
       ...options,
@@ -89,6 +96,4 @@ class GitHubService {
   }
 }
 
-const gitHubService = new GitHubService(rest);
-
-export default gitHubService;
+export default GitHubService;
