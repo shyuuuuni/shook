@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '@/libs/next-auth/authOptions';
 import GitHubLoginButton from './_components/GitHubLoginButton';
 import * as styles from './page.css';
 
