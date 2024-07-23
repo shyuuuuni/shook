@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/libs/next-auth/authOptions';
+import { authOptions } from '@/libs/next-auth';
 import GitHubLoginButton from './_components/GitHubLoginButton';
 import * as styles from './page.css';
 
