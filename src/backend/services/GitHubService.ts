@@ -1,5 +1,6 @@
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
 import { Octokit } from 'octokit';
+import { rest } from '@/configs/github';
 import {
   GitHubCommit,
   GitHubPullRequest,
@@ -10,10 +11,17 @@ import {
 class GitHubService {
   private octokit: Octokit;
 
-  constructor() {
-    this.octokit = new Octokit({
-      auth: process.env.GITHUB_AUTH_TOKEN,
-    });
+  constructor(octokit: Octokit) {
+    this.octokit = octokit;
+  }
+
+  async getRateLimit(): Promise<
+    RestEndpointMethodTypes['rateLimit']['get']['response']['data']['resources']
+  > {
+    const response = await this.octokit.rest.rateLimit.get();
+    const rateLimit = response.data.resources;
+
+    return rateLimit;
   }
 
   async getUserByUsername({
@@ -81,6 +89,6 @@ class GitHubService {
   }
 }
 
-const gitHubService = new GitHubService();
+const gitHubService = new GitHubService(rest);
 
 export default gitHubService;
