@@ -4,5 +4,6 @@ declare namespace NodeJS {
     NCP_API_GW_API_KEY: string;
     GITHUB_OAUTH_CLIENT_ID: string;
     GITHUB_OAUTH_SECRET: string;
+    NEXTAUTH_SECRET: string;
   }
 }
