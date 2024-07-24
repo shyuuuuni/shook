@@ -45,14 +45,10 @@ class GitHubService {
     return user;
   }
 
-  async getRepositoryListByUser({
-    username,
-    ...options
-  }: RestEndpointMethodTypes['repos']['listForUser']['parameters']): Promise<
-    GitHubRepository[]
-  > {
-    const response = await this.rest.repos.listForUser({
-      username,
+  async getRepositoryListByUser(
+    options: RestEndpointMethodTypes['repos']['listForAuthenticatedUser']['parameters'] = {},
+  ): Promise<GitHubRepository[]> {
+    const response = await this.rest.repos.listForAuthenticatedUser({
       ...options,
     });
     const repoList = response.data;

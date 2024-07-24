@@ -3,7 +3,7 @@ import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-meth
 export type GitHubUser =
   RestEndpointMethodTypes['users']['getByUsername']['response']['data'];
 export type GitHubRepository =
-  RestEndpointMethodTypes['repos']['listForUser']['response']['data'][0];
+  RestEndpointMethodTypes['repos']['listForAuthenticatedUser']['response']['data'][0];
 export type GitHubPullRequest =
   RestEndpointMethodTypes['pulls']['list']['response']['data'][0];
 export type GitHubCommit =
