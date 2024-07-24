@@ -13,10 +13,12 @@ export const fetchStarredRepositoryMetrics = async () => {
   console.debug('Start run()');
 
   // 1. 저장소 정보 불러오기
+  console.debug('Start getStarredRepositoryMetrics()');
   metrics = await getStarredRepositoryMetrics();
 
   // 2. README.md 요약하기
   for (const metric of metrics) {
+    console.debug(`Start summarizeReadme(${metric.name})`);
     metric.readme = await summarizeReadme(metric.readme);
 
     // ClovaStudio 요청 제한 방지를 위해 5초 대기
@@ -161,6 +163,9 @@ export const summarizeReadme = async (readme: string): Promise<string> => {
 
   const response = await clovaStudioService.getSummarization({
     texts: [readme],
+    autoSentenceSplitter: true,
+    segCount: -1, // 자동으로 문장을 나누어 요약
+    segMaxSize: 1000,
   });
   const summarizedReadme = response.result.text;
 

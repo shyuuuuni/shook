@@ -61,4 +61,7 @@ export type SummarizationOptions = {
   segMaxSize?: number;
   segMinSize?: number;
   includeAiFilter?: boolean;
+  postProcess?: boolean;
+  postProcessMinSize?: number;
+  postProcessMaxSize?: number;
 };
