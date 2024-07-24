@@ -24,6 +24,7 @@ export { default as QUERY_DISCUSSIONS_STATISTICS } from './discussions/statistic
 
 // followup
 export { default as QUERY_FOLLOWUP_REPOSITORY_COLLABORATORS } from './followup/repository.collaborators.graphql';
+export { default as QUERY_FOLLOWUP_REPOSITORY_STARRED } from './followup/repository.starred.graphql';
 
 // licenses
 export { default as QUERY_LICENSES_DEFAULT } from './licenses/licenses.graphql';

@@ -1,8 +1,8 @@
-import { run } from './actions';
+import { fetchStarredRepositoryMetrics } from './actions';
 
 export default function Runner() {
   return (
-    <form action={run}>
+    <form action={fetchStarredRepositoryMetrics}>
       <button role="submit">run!</button>
     </form>
   );

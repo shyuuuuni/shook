@@ -1,8 +1,9 @@
 import { z } from 'zod';
 
+// Chat Completion API
 export const chatCompletionResponseSchema = z.object({
   status: z.object({
-    code: z.literal('20000'),
+    code: z.string(),
     message: z.string(),
   }),
   result: z.object({
@@ -33,4 +34,16 @@ export const commitGroupSchema = z.array(
 );
 export const filterResultSchema = z.object({
   isEffective: z.boolean(),
+});
+
+// Summarization API
+export const summarizationResponseSchema = z.object({
+  status: z.object({
+    code: z.string(),
+    message: z.string(),
+  }),
+  result: z.object({
+    text: z.string(),
+    inputTokens: z.number(),
+  }),
 });

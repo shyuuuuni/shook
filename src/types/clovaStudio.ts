@@ -3,8 +3,10 @@ import {
   chatCompletionResponseSchema,
   commitGroupSchema,
   filterResultSchema,
+  summarizationResponseSchema,
 } from './clovaStudio.schema';
 
+// Chat Completion API
 export type HyperClovaXModel = 'HCX-003' | 'HCX-DASH-001';
 export type ChatMessage = {
   role: 'system' | 'user' | 'assistant';
@@ -40,3 +42,23 @@ export type ChatCompletionResponse = z.infer<
 >;
 export type CommitGroup = z.infer<typeof commitGroupSchema>[number];
 export type FilterResult = z.infer<typeof filterResultSchema>;
+
+// Summarization API
+export type SummarizationRequest = {
+  Header: {
+    'X-NCP-CLOVASTUDIO-API-KEY': string;
+    'X-NCP-APIGW-API-KEY': string;
+    'X-NCP-CLOVASTUDIO-REQUEST-ID'?: string;
+    'Content-Type': 'application/json';
+  };
+  Body: SummarizationOptions;
+};
+export type SummarizationResponse = z.infer<typeof summarizationResponseSchema>;
+export type SummarizationOptions = {
+  texts: string[];
+  autoSentenceSplitter?: boolean;
+  segCount?: number;
+  segMaxSize?: number;
+  segMinSize?: number;
+  includeAiFilter?: boolean;
+};

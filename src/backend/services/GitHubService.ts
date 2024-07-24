@@ -10,18 +10,19 @@ import {
 } from '@/types/github';
 
 class GitHubService {
-  private rest: Octokit['rest'];
-  private graphql: Graphql;
+  public rest: Octokit['rest'];
+  public graphql: Graphql;
 
   constructor(gitHubToken: string) {
     this.rest = new Octokit({ auth: gitHubToken }).rest;
     this.graphql = graphql.defaults({
       headers: {
-        authorization: `token ${process.env.GITHUB_AUTH_TOKEN}`,
+        authorization: `token ${gitHubToken}`,
       },
     });
   }
 
+  // rest
   async getRateLimit(): Promise<
     RestEndpointMethodTypes['rateLimit']['get']['response']['data']['resources']
   > {
@@ -78,7 +79,7 @@ class GitHubService {
     return pullRequestList;
   }
 
-  async getCommitList({
+  async getCommitListAll({
     owner,
     repo,
     ...options
