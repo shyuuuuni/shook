@@ -1,21 +1,30 @@
 import { QueryKey, UseQueryOptions } from '@tanstack/react-query';
-import gitHubService from '@/backend/services/GitHubService';
+import GitHubService from '@/backend/services/GitHubService';
 import { GitHubRepository } from '@/types/github';
 
 export const gitHubQueryKeys = {
-  repositories: (username: string) => ['user', 'repository', { username }],
+  repositories: (accessToken: string) => [
+    'user',
+    'repository',
+    { accessToken },
+  ],
 };
 
 export const gitHubQueryOptions = {
   repositories: (
-    username: string,
+    accessToken: string,
   ): UseQueryOptions<
     GitHubRepository[],
     Error,
     GitHubRepository[],
     QueryKey
   > => ({
-    queryKey: gitHubQueryKeys.repositories(username),
-    queryFn: async () => gitHubService.getRepositoryListByUser({ username }),
+    queryKey: gitHubQueryKeys.repositories(accessToken),
+    queryFn: async () => {
+      const gitHubService = new GitHubService(accessToken);
+      const repositories = await gitHubService.getRepositoryListByUser();
+
+      return repositories;
+    },
   }),
 };

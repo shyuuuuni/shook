@@ -7,3 +7,17 @@ export const formatISODateToYYYYMMDD = (isoData: string) => {
   const date = new Date(isoData);
   return `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}`;
 };
+
+/**
+ * ms를 초단위로 변환
+ * @param ms 밀리초
+ * @returns 초
+ */
+export const msToSeconds = (ms: number) => Math.floor(ms / 1000);
+
+/**
+ * ms초동안 대기
+ * @param ms 대기할 밀리초
+ */
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));

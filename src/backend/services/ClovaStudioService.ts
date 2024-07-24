@@ -1,12 +1,12 @@
 import {
   ChatCompletionRequest,
   ChatMessage,
-  CommitGroup,
   HyperClovaXModel,
+  SummarizationOptions,
 } from '@/types/clovaStudio';
 import {
   chatCompletionResponseSchema,
-  commitGroupSchema,
+  summarizationResponseSchema,
 } from '@/types/clovaStudio.schema';
 
 class ClovaStudioService {
@@ -39,7 +39,7 @@ class ClovaStudioService {
     prompts: string;
     systemPrompts?: string[];
     streaming?: boolean;
-  } & Omit<ChatCompletionRequest['Body'], 'messages'>): Promise<CommitGroup[]> {
+  } & Omit<ChatCompletionRequest['Body'], 'messages'>) {
     const apiUrl = `${this.baseUrl}/v1/chat-completions/${model}`;
     const requestHeader: ChatCompletionRequest['Header'] = {
       'X-NCP-CLOVASTUDIO-API-KEY': this.apiKey,
@@ -63,18 +63,35 @@ class ClovaStudioService {
         messages: [...systemMessages, userMessage],
         ...bodyOptions,
       }),
+      cache: 'no-store',
     });
     const body = await response.json();
-    const chatCompletionResponse = chatCompletionResponseSchema.parse(body);
-    const data = commitGroupSchema.parse(
-      JSON.parse(chatCompletionResponse.result.message.content),
-    );
+    const data = chatCompletionResponseSchema.parse(body);
 
     return data;
   }
 
-  // TODO: 테스트를 위한 토큰 계산 API
-  async getChatTokenize({
+  async getSummarization(options: SummarizationOptions) {
+    const apiUrl = `${this.baseUrl}/v1/api-tools/summarization/v2/332270f2309c4070a98ec7a962b8bec5`;
+    const headers: ChatCompletionRequest['Header'] = {
+      'X-NCP-CLOVASTUDIO-API-KEY': this.apiKey,
+      'X-NCP-APIGW-API-KEY': this.gwApiKey,
+      'Content-Type': 'application/json',
+    };
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(options),
+      cache: 'no-store',
+    });
+    const body = await response.json();
+    const data = summarizationResponseSchema.parse(body);
+
+    return data;
+  }
+
+  async getChatTokenSize({
     model,
     prompts,
     systemPrompts = [],
