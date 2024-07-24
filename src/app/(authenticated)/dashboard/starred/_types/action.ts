@@ -11,6 +11,13 @@ export type Metric = {
   readme: string;
 };
 
+export type Topic = {
+  name: string;
+  description?: string;
+  icon?: string;
+  url?: string;
+};
+
 export type StarredRepositoryMetrics = {
   viewer: {
     starredRepositories: {
