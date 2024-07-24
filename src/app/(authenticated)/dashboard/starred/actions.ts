@@ -180,9 +180,11 @@ export const getReadmeText = async ({
    * 토큰이 과도하게 사용되기 때문에, 텍스트만 추출하여 사용하며,
    * 단순 공백 등을 제거하여 토큰을 최적화한다.
    */
-  const html = readme.data;
-  const textContent = parse(String(html))
-    .textContent.split('\n')
+  const html = parse(String(readme.data));
+  html.querySelectorAll('code').forEach((code) => code.remove());
+
+  const textContent = html.textContent
+    .split('\n')
     .map((line) => line.trim())
     .filter((line) => line.length > 0 && line !== '\n')
     .join('\n');
@@ -201,7 +203,7 @@ export const summarizeReadme = async (readme: string): Promise<string> => {
   }
   if (readme.length > 35000) {
     console.debug(`Skip summarizeReadme Text too long: ${readme.length}`);
-    return summarizeReadme(readme.slice(0, 35000));
+    return summarizeReadme(readme.slice(0, 35000 - 100));
   }
 
   console.debug(`Start summarizeReadme()`);
@@ -209,8 +211,6 @@ export const summarizeReadme = async (readme: string): Promise<string> => {
   const response = await clovaStudioService.getSummarization({
     texts: [readme],
     autoSentenceSplitter: true,
-    segCount: -1, // 자동으로 문장을 나누어 요약
-    segMaxSize: 1000,
   });
   const summarizedReadme = response.result.text;
 
