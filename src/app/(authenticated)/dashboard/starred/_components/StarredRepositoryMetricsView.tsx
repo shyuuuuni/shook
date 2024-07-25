@@ -26,8 +26,8 @@ export default function StarredRepositoryMetricsView({
         ))
         .otherwise(() => (
           <ul>
-            {metrics.map((metric, i) => (
-              <RepositoryMetric key={i} metric={metric} />
+            {metrics.map((metric) => (
+              <RepositoryMetric key={metric.id} metric={metric} />
             ))}
           </ul>
         ))}
