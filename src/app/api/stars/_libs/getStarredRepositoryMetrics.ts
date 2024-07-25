@@ -97,7 +97,7 @@ export const getReadmeText = async ({
    * 단순 공백 등을 제거하여 토큰을 최적화한다.
    */
   const html = parse(String(readme.data));
-  html.querySelectorAll('code').forEach((code) => code.remove());
+  html.querySelectorAll('div.highlight').forEach((code) => code.remove());
 
   const textContent = html.textContent
     .split('\n')
