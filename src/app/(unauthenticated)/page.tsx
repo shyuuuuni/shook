@@ -21,7 +21,9 @@ export default async function Page() {
 
   try {
     const response = await fetch(`${API_URL}/test`);
+    console.log('res', response);
     const json = await response.json();
+    console.log('json:', json);
     data.result = `API response: ${JSON.stringify(json?.result)}`;
   } catch (error) {
     console.log(error);
