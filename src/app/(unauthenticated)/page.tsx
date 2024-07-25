@@ -15,8 +15,18 @@ export default async function Page() {
     process.env.VERCEL_URL,
   );
 
-  const response = await fetch(`${API_URL}/test`);
-  const data = await response.json();
+  const data = {
+    result: 'temp',
+  };
+
+  try {
+    const response = await fetch(`${API_URL}/test`);
+    const json = await response.json();
+    data.result = `API response: ${JSON.stringify(json?.result)}`;
+  } catch (error) {
+    console.log(error);
+    data.result = `API error`;
+  }
 
   if (session) {
     redirect('/dashboard');
