@@ -8,5 +8,5 @@ export const readmore = style({
 });
 
 export const readme = style({
-  whiteSpace: 'pre',
+  whiteSpace: 'pre-line',
 });
