@@ -1,5 +1,8 @@
 import { UseQueryOptions, QueryKey } from '@tanstack/react-query';
-import { Metric, Topic } from '@/app/(authenticated)/dashboard/starred/_types/action';
+import {
+  Metric,
+  Topic,
+} from '@/app/(authenticated)/dashboard/starred/_types/action';
 import { API_URL } from '@/configs/env';
 
 const starsApiRoutes = {

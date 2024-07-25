@@ -1,14 +1,12 @@
 'use client';
 
 import { match, P } from 'ts-pattern';
+import { useStarsRepositoryQuery } from '@/hooks/queries/useStarsQuery';
 import ItemSkeleton from './ItemSkeleton';
 import RepositoryMetric from './RepositoryMetric';
 import * as styles from './StarredRepositoryMetricsView.css';
-import { useStarsRepositoryQuery } from '@/hooks/queries/useStarsQuery';
 
-type StarredRepositoryMetricsViewProps = {};
-
-export default function StarredRepositoryMetricsView({}: StarredRepositoryMetricsViewProps) {
+export default function StarredRepositoryMetricsView() {
   const { data: metrics, isFetching } = useStarsRepositoryQuery();
 
   return (

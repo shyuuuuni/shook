@@ -57,6 +57,6 @@
         }
       }
     ],
-    "@tanstack/query/exhaustive-deps": false
+    "@tanstack/query/exhaustive-deps": "off"
   }
 }

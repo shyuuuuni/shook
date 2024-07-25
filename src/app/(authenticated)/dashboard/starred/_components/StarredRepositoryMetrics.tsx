@@ -1,10 +1,8 @@
 'use client';
 
-import { useFormState } from 'react-dom';
-import FormButton from '@/components/button/FormButton';
+import { useStarsRepositoryQuery } from '@/hooks/queries/useStarsQuery';
 import * as styles from './StarredRepositoryMetrics.css';
 import StarredRepositoryMetricsView from './StarredRepositoryMetricsView';
-import { useStarsRepositoryQuery } from '@/hooks/queries/useStarsQuery';
 
 export default function StarredRepositoryMetrics() {
   const { refetch } = useStarsRepositoryQuery();

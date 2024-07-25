@@ -1,14 +1,12 @@
 'use client';
 
 import { match, P } from 'ts-pattern';
+import { useStarsTopicsQuery } from '@/hooks/queries/useStarsQuery';
 import ItemSkeleton from './ItemSkeleton';
 import * as styles from './StarredTopicsView.css';
 import Topic from './Topic';
-import { useStarsTopicsQuery } from '@/hooks/queries/useStarsQuery';
 
-type StarredTopicsViewProps = {};
-
-export default function StarredTopicsView({}: StarredTopicsViewProps) {
+export default function StarredTopicsView() {
   const { data: topics, isFetching } = useStarsTopicsQuery();
 
   return (

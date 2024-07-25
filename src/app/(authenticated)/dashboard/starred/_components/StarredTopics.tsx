@@ -1,8 +1,8 @@
 'use client';
 
+import { useStarsTopicsQuery } from '@/hooks/queries/useStarsQuery';
 import * as styles from './StarredTopics.css';
 import StarredTopicsView from './StarredTopicsView';
-import { useStarsTopicsQuery } from '@/hooks/queries/useStarsQuery';
 
 export default function StarredTopics() {
   const { refetch } = useStarsTopicsQuery();
