@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useFormState } from 'react-dom';
 import FormButton from '@/components/button/FormButton';
 import { fetchStarredRepositoryMetrics } from '../actions';
