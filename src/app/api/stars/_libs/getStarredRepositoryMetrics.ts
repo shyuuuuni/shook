@@ -5,7 +5,6 @@ import {
 } from '@/app/(authenticated)/dashboard/starred/_types/action';
 import clovaStudioService from '@/backend/services/ClovaStudioService';
 import GitHubService from '@/backend/services/GitHubService';
-import { APP_FLAG } from '@/configs/env';
 import { QUERY_FOLLOWUP_REPOSITORY_STARRED } from '@/libs/metrics/queries';
 import { getAccessToken } from '@/libs/next-auth';
 import { sleep } from '@/libs/time';
@@ -13,24 +12,19 @@ import { sleep } from '@/libs/time';
 const getStarredRepositoryMetrics = async () => {
   let metrics: Metric[] = [];
 
-  console.debug(`Start run() for ${APP_FLAG}`);
+  console.debug(`Start run getStarredRepositoryMetrics()`);
 
   // 1. 저장소 정보 불러오기
   console.debug('Start getStarredRepositoryMetrics()');
   metrics = await getStarredRepositories();
-
-  if (APP_FLAG === 'TEST') {
-    // 랜덤화 후 5개만 남김
-    metrics = metrics.sort(() => 0.5 - Math.random()).splice(0, 5);
-  }
 
   // 2. README.md 요약하기
   for (const metric of metrics) {
     console.debug(`Start summarizeReadme(${metric.name})`);
     metric.readme = await summarizeReadme(metric.readme);
 
-    // ClovaStudio 요청 제한 방지를 위해 5초 대기
-    await sleep(1000 * 5);
+    // ClovaStudio 요청 제한 방지를 위해 1초 대기
+    await sleep(1000);
   }
 
   return metrics;
@@ -119,20 +113,27 @@ export const summarizeReadme = async (readme: string): Promise<string> => {
   }
   if (readme.length > 35000) {
     console.debug(`Skip summarizeReadme Text too long: ${readme.length}`);
+
+    // 최대 글자수(35000자) 제한 고려
     return summarizeReadme(readme.slice(0, 35000 - 100));
   }
 
   console.debug(`Start summarizeReadme()`);
 
-  const response = await clovaStudioService.getSummarization({
-    texts: [readme],
-    autoSentenceSplitter: true,
-  });
-  const summarizedReadme = response.result.text;
+  try {
+    const response = await clovaStudioService.getSummarization({
+      texts: [readme],
+      autoSentenceSplitter: true,
+    });
+    const summarizedReadme = response.result.text;
 
-  console.debug(`End summarizeReadme() size: ${summarizedReadme.length}`);
+    console.debug(`End summarizeReadme() size: ${summarizedReadme.length}`);
 
-  return summarizedReadme;
+    return summarizedReadme;
+  } catch (e) {
+    console.error(`Failed summarizeReadme()`, e);
+    return '';
+  }
 };
 
 export default getStarredRepositoryMetrics;
