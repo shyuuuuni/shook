@@ -3,6 +3,7 @@
 import parse from 'node-html-parser';
 import clovaStudioService from '@/backend/services/ClovaStudioService';
 import GitHubService from '@/backend/services/GitHubService';
+import { APP_FLAG } from '@/configs/env';
 import { QUERY_FOLLOWUP_REPOSITORY_STARRED } from '@/libs/metrics/queries';
 import { getAccessToken } from '@/libs/next-auth';
 import { sleep } from '@/libs/time';
@@ -10,11 +11,17 @@ import { Metric, StarredRepositoryMetrics, Topic } from './_types/action';
 
 export const fetchStarredRepositoryMetrics = async () => {
   let metrics: Metric[] = [];
-  console.debug('Start run()');
+
+  console.debug(`Start run() for ${APP_FLAG}`);
 
   // 1. 저장소 정보 불러오기
   console.debug('Start getStarredRepositoryMetrics()');
   metrics = await getStarredRepositoryMetrics();
+
+  if (APP_FLAG === 'TEST') {
+    // 랜덤화 후 5개만 남김
+    metrics = metrics.sort(() => 0.5 - Math.random()).splice(0, 5);
+  }
 
   // 2. README.md 요약하기
   for (const metric of metrics) {
