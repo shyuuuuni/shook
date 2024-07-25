@@ -1,22 +1,23 @@
-'use server';
-
 import parse from 'node-html-parser';
+import {
+  Metric,
+  StarredRepositoryMetrics,
+} from '@/app/(authenticated)/dashboard/starred/_types/action';
 import clovaStudioService from '@/backend/services/ClovaStudioService';
 import GitHubService from '@/backend/services/GitHubService';
 import { APP_FLAG } from '@/configs/env';
 import { QUERY_FOLLOWUP_REPOSITORY_STARRED } from '@/libs/metrics/queries';
 import { getAccessToken } from '@/libs/next-auth';
 import { sleep } from '@/libs/time';
-import { Metric, StarredRepositoryMetrics, Topic } from './_types/action';
 
-export const fetchStarredRepositoryMetrics = async () => {
+const getStarredRepositoryMetrics = async () => {
   let metrics: Metric[] = [];
 
   console.debug(`Start run() for ${APP_FLAG}`);
 
   // 1. 저장소 정보 불러오기
   console.debug('Start getStarredRepositoryMetrics()');
-  metrics = await getStarredRepositoryMetrics();
+  metrics = await getStarredRepositories();
 
   if (APP_FLAG === 'TEST') {
     // 랜덤화 후 5개만 남김
@@ -35,99 +36,7 @@ export const fetchStarredRepositoryMetrics = async () => {
   return metrics;
 };
 
-export const fetchStarredTopics = async () => {
-  console.debug('Start fetchStarredTopics()');
-
-  // TODO: 아래 액세스 토큰을 불러오는 부분 공통 로직 처리하기
-  const accessToken = await getAccessToken();
-  const gitHubService = new GitHubService(accessToken);
-  const res = await gitHubService.rest.users.getAuthenticated();
-  const user = res.data.login;
-
-  const starredTopics: Topic[] = [];
-
-  for (let cursor = 1; cursor < 10; cursor++) {
-    console.debug(
-      `Start fetchStarredTopics for user(${user}), (cursor: ${cursor})`,
-    );
-
-    const response = await fetch(
-      `https://github.com/stars/${user}/topics?direction=desc&page=${cursor}`,
-    );
-    const html = await response.text();
-    const currentStarredTopics = parse(html)
-      .querySelectorAll('ul.repo-list li')
-      .map((li) => ({
-        name: li.querySelector('.f3')?.innerText ?? '',
-        description: li.querySelector('.f5')?.innerText ?? '',
-        icon: li.querySelector('img')?.getAttribute('src'),
-        url: li.querySelector('a')?.getAttribute('href'),
-      }))
-      .filter((starredTopic) => starredTopic.name);
-
-    starredTopics.push(...currentStarredTopics);
-    console.debug(
-      `Add ${currentStarredTopics.length} items to starredTopics(current: ${starredTopics.length})`,
-    );
-
-    if (currentStarredTopics.length === 0) {
-      break;
-    }
-  }
-
-  console.debug(`End fetchStarredTopics(): ${starredTopics.length}`);
-
-  return starredTopics;
-};
-
-export const analyzeMetrics = async (metrics: Metric[]) => {
-  // 3. CLOVA X로 저장소 분석하기
-  for await (const metric of metrics) {
-    console.debug(`Start analyzeRepository(${metric.name})`);
-    const createChatCompletion = () =>
-      clovaStudioService.createChatCompletion({
-        model: 'HCX-003',
-        prompts: JSON.stringify(metric),
-        systemPrompts: [
-          '아래는 레포지토리의 정보야. 해당 정보를 분석하고 키워드 추출 및 요약을 해봐',
-          '키워드는 최대 10개, 요약은 최대 3문장으로 줄여줘.',
-        ],
-        maxTokens: 400,
-      });
-    let result = null,
-      retry = 0;
-
-    while (result === null && retry < 3) {
-      console.debug(`While Retry ${retry}...`);
-      retry += 1;
-      const completions = await createChatCompletion();
-      console.debug(`End createChatCompletion(${metric.name})`, completions);
-      console.debug(`Status: ${completions?.status?.message}`);
-
-      if (completions?.status?.code === '20000') {
-        result = completions;
-        break;
-      } else if (completions?.status?.code === '42901') {
-        console.debug('Rate limit exceeded');
-        // 분당 요청 제한 초과를 방지
-        await sleep(1000 * 60);
-        continue;
-      }
-    }
-
-    const success = result !== null;
-    console.debug(
-      `End analyzeRepository(${metric.name}) ${success ? 'success' : 'failed'} in ${retry} retries`,
-    );
-
-    // 요청 제한 방지를 위해 10초 대기
-    await sleep(1000 * 10);
-  }
-
-  return '';
-};
-
-export const getStarredRepositoryMetrics = async () => {
+export const getStarredRepositories = async () => {
   console.debug('Start getStarredRepositoryMetrics()');
 
   const accessToken = await getAccessToken();
@@ -225,3 +134,5 @@ export const summarizeReadme = async (readme: string): Promise<string> => {
 
   return summarizedReadme;
 };
+
+export default getStarredRepositoryMetrics;
