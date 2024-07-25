@@ -7,10 +7,10 @@ import * as styles from './page.css';
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  const response = await fetch(`${API_URL}/test`);
-  const data = await response.json();
+  // const response = await fetch(`${API_URL}/test`);
+  // const data = await response.json();
 
-  console.log(data);
+  console.log(`${API_URL}/test`);
 
   if (session) {
     redirect('/dashboard');
@@ -18,7 +18,7 @@ export default async function Page() {
 
   return (
     <main className={styles.main}>
-      <div>{data.result}</div>
+      {/* <div>{data.result}</div> */}
       <GitHubLoginButton />
     </main>
   );
