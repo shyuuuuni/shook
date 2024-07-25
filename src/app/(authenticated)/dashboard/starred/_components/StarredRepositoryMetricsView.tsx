@@ -1,32 +1,27 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
 import { match, P } from 'ts-pattern';
-import { Metric } from '../_types/action';
 import ItemSkeleton from './ItemSkeleton';
 import RepositoryMetric from './RepositoryMetric';
 import * as styles from './StarredRepositoryMetricsView.css';
+import { useStarsRepositoryQuery } from '@/hooks/queries/useStarsQuery';
 
-type StarredRepositoryMetricsViewProps = {
-  metrics: Metric[];
-};
+type StarredRepositoryMetricsViewProps = {};
 
-export default function StarredRepositoryMetricsView({
-  metrics,
-}: StarredRepositoryMetricsViewProps) {
-  const status = useFormStatus();
+export default function StarredRepositoryMetricsView({}: StarredRepositoryMetricsViewProps) {
+  const { data: metrics, isFetching } = useStarsRepositoryQuery();
 
   return (
     <section>
       <h2 className={styles.h2}>Repository Metrics</h2>
-      {match({ loading: status.pending, metrics })
-        .with({ loading: true }, () => <ItemSkeleton count={2} />)
-        .with({ metrics: P.when((metrics) => metrics.length === 0) }, () => (
+      {match({ isFetching, metrics })
+        .with({ isFetching: true }, () => <ItemSkeleton count={2} />)
+        .with({ metrics: P.when((metrics) => metrics?.length === 0) }, () => (
           <p className={styles.p}>No metrics found.</p>
         ))
         .otherwise(() => (
           <ul>
-            {metrics.map((metric) => (
+            {metrics?.map((metric) => (
               <RepositoryMetric key={metric.id} metric={metric} />
             ))}
           </ul>

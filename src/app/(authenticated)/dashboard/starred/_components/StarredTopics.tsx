@@ -1,24 +1,22 @@
 'use client';
 
-import { useFormState } from 'react-dom';
-import { fetchStarredTopics } from '../actions';
 import * as styles from './StarredTopics.css';
 import StarredTopicsView from './StarredTopicsView';
+import { useStarsTopicsQuery } from '@/hooks/queries/useStarsQuery';
 
 export default function StarredTopics() {
-  const [starredTopics, actionFetchStarredTopics] = useFormState(
-    fetchStarredTopics,
-    [],
-  );
+  const { refetch } = useStarsTopicsQuery();
+
+  const handleClick = () => {
+    refetch();
+  };
 
   return (
     <section className={styles.container}>
-      <form action={actionFetchStarredTopics}>
-        <button className={styles.button} type="submit">
-          Fetch Starred Topics
-        </button>
-        <StarredTopicsView topics={starredTopics} />
-      </form>
+      <button className={styles.button} onClick={handleClick}>
+        Fetch Starred Topics
+      </button>
+      <StarredTopicsView />
     </section>
   );
 }
