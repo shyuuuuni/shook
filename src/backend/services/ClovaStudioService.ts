@@ -4,26 +4,17 @@ import {
   HyperClovaXModel,
   SummarizationOptions,
 } from '@/types/clovaStudio';
-import {
-  chatCompletionResponseSchema,
-  summarizationResponseSchema,
-} from '@/types/clovaStudio.schema';
+import { summarizationResponseSchema } from '@/types/clovaStudio.schema';
 
 class ClovaStudioService {
   private baseUrl: string;
+  private streamingBaseUrl: string;
   private apiKey: string;
   private gwApiKey: string;
 
-  constructor({
-    baseUrl,
-    apiKey,
-    gwApiKey,
-  }: {
-    baseUrl: string;
-    apiKey: string;
-    gwApiKey: string;
-  }) {
-    this.baseUrl = baseUrl;
+  constructor({ apiKey, gwApiKey }: { apiKey: string; gwApiKey: string }) {
+    this.baseUrl = 'https://clovastudio.apigw.ntruss.com/testapp';
+    this.streamingBaseUrl = 'https://clovastudio.stream.ntruss.com/testapp';
     this.apiKey = apiKey;
     this.gwApiKey = gwApiKey;
   }
@@ -40,11 +31,11 @@ class ClovaStudioService {
     systemPrompts?: string[];
     streaming?: boolean;
   } & Omit<ChatCompletionRequest['Body'], 'messages'>) {
-    const apiUrl = `${this.baseUrl}/v1/chat-completions/${model}`;
+    const apiUrl = `${streaming ? this.streamingBaseUrl : this.baseUrl}/v1/chat-completions/${model}`;
     const requestHeader: ChatCompletionRequest['Header'] = {
       'X-NCP-CLOVASTUDIO-API-KEY': this.apiKey,
       'X-NCP-APIGW-API-KEY': this.gwApiKey,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
       ...(streaming && { Accept: 'text/event-stream' }),
     };
     const systemMessages: ChatMessage[] = systemPrompts.map((prompt) => ({
@@ -63,12 +54,16 @@ class ClovaStudioService {
         messages: [...systemMessages, userMessage],
         ...bodyOptions,
       }),
-      cache: 'no-store',
     });
-    const body = await response.json();
-    const data = chatCompletionResponseSchema.parse(body);
 
-    return data;
+    if (streaming) {
+      // Return readable stream
+      return response.body;
+    }
+
+    const body = await response.json();
+
+    return body;
   }
 
   async getSummarization(options: SummarizationOptions) {
@@ -129,7 +124,6 @@ class ClovaStudioService {
 }
 
 const clovaStudioService = new ClovaStudioService({
-  baseUrl: 'https://clovastudio.apigw.ntruss.com/testapp',
   apiKey: process.env.NCP_CLOVA_STUDIO_API_KEY,
   gwApiKey: process.env.NCP_API_GW_API_KEY,
 });

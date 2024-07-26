@@ -1,25 +1,22 @@
 'use client';
 
-import { useFormState } from 'react-dom';
-import FormButton from '@/components/button/FormButton';
-import { fetchStarredRepositoryMetrics } from '../actions';
+import { useStarsRepositoryQuery } from '@/hooks/queries/useStarsQuery';
 import * as styles from './StarredRepositoryMetrics.css';
 import StarredRepositoryMetricsView from './StarredRepositoryMetricsView';
 
 export default function StarredRepositoryMetrics() {
-  const [metrics, actionFetchMetrics] = useFormState(
-    fetchStarredRepositoryMetrics,
-    [],
-  );
+  const { refetch } = useStarsRepositoryQuery();
+
+  const handleClick = () => {
+    refetch();
+  };
 
   return (
     <section className={styles.container}>
-      <form action={actionFetchMetrics}>
-        <FormButton className={styles.button} type="submit">
-          Fetch Metrics
-        </FormButton>
-        <StarredRepositoryMetricsView metrics={metrics} />
-      </form>
+      <button className={styles.button} onClick={handleClick}>
+        Fetch Metrics
+      </button>
+      <StarredRepositoryMetricsView />
     </section>
   );
 }

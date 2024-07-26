@@ -22,7 +22,7 @@ export type ChatCompletionRequest = {
     'X-NCP-CLOVASTUDIO-API-KEY': string;
     'X-NCP-APIGW-API-KEY': string;
     'X-NCP-CLOVASTUDIO-REQUEST-ID'?: string;
-    'Content-Type': 'application/json';
+    'Content-Type': 'application/json' | 'application/json; charset=utf-8';
     Accept?: 'text/event-stream';
   };
   Body: {
