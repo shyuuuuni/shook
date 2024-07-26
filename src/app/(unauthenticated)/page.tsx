@@ -8,11 +8,15 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
 
   if (session) {
-    redirect('/dashboard');
+    redirect('/dashboard/starred');
   }
 
   return (
     <main className={styles.main}>
+      <h1 className={styles.title}>Shook</h1>
+      <p className={styles.description}>
+        Sign in with GitHub to access your dashboard.
+      </p>
       <GitHubLoginButton />
     </main>
   );
