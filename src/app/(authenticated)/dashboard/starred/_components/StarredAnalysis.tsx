@@ -33,7 +33,7 @@ export default function StarredAnalysis() {
           Repository Metrics: {isReadyMetrics ? 'Ready ✅' : 'Required ⛔'}
         </p>
       </div>
-      <div className={styles.analysis}>{analysis}</div>
+      {analysis && <div className={styles.analysis}>{analysis}</div>}
     </section>
   );
 }
