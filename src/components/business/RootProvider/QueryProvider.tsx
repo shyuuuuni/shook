@@ -12,6 +12,7 @@ export default function QueryProvider({ children }: QueryProviderProps) {
         defaultOptions: {
           queries: {
             retry: false,
+            refetchOnWindowFocus: false,
           },
         },
       }),

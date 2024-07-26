@@ -1,52 +1,32 @@
-import { Metric } from '@/app/(authenticated)/dashboard/starred/_types/action';
-import clovaStudioService from '@/backend/services/ClovaStudioService';
-import { sleep } from '@/libs/time';
+import {
+  Metric,
+  Topic,
+} from '@/app/(authenticated)/dashboard/starred/_types/action';
 
-const getAnalysisStarredMetrics = async (metrics: Metric[]) => {
-  // 3. CLOVA X로 저장소 분석하기
-  for await (const metric of metrics) {
-    console.debug(`Start analyzeRepository(${metric.name})`);
-    const createChatCompletion = () =>
-      clovaStudioService.createChatCompletion({
-        model: 'HCX-003',
-        prompts: JSON.stringify(metric),
-        systemPrompts: [
-          '아래는 레포지토리의 정보야. 해당 정보를 분석하고 키워드 추출 및 요약을 해봐',
-          '키워드는 최대 10개, 요약은 최대 3문장으로 줄여줘.',
-        ],
-        maxTokens: 400,
-      });
-    let result = null,
-      retry = 0;
+export const formatMetrics = (
+  topics: Topic[],
+  metrics: Metric[],
+) => `저의 Starred Topic과 Repository 정보는 다음과 같습니다.
 
-    while (result === null && retry < 3) {
-      console.debug(`While Retry ${retry}...`);
-      retry += 1;
-      const completions = await createChatCompletion();
-      console.debug(`End createChatCompletion(${metric.name})`, completions);
-      console.debug(`Status: ${completions?.status?.message}`);
+# Starred Topics
+${topics.map((topic, index) => `Topic#${index}: ${topic.name}, ${topic.description}`).join('\n')}
 
-      if (completions?.status?.code === '20000') {
-        result = completions;
-        break;
-      } else if (completions?.status?.code === '42901') {
-        console.debug('Rate limit exceeded');
-        // 분당 요청 제한 초과를 방지
-        await sleep(1000 * 60);
-        continue;
-      }
-    }
-
-    const success = result !== null;
-    console.debug(
-      `End analyzeRepository(${metric.name}) ${success ? 'success' : 'failed'} in ${retry} retries`,
-    );
-
-    // 요청 제한 방지를 위해 10초 대기
-    await sleep(1000 * 10);
+# Starred Repositories
+${metrics.map((metric, index) => {
+  const base = [
+    `Repository#${index}:
+- 저장소 이름: ${metric.name}`,
+  ];
+  if (metric.description) {
+    base.push(`- 저장소 설명: ${metric.description}`);
+  }
+  if (metric.topics) {
+    base.push(`- 저장소 Topic: ${metric.topics.join(', ')}`);
+  }
+  if (metric.languages && metric.languages.length > 0) {
+    base.push(`- 사용 언어: ${metric.languages.join(', ')}`);
   }
 
-  return '';
-};
-
-export default getAnalysisStarredMetrics;
+  return base.join('\n');
+})}
+`;
