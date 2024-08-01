@@ -9,7 +9,7 @@ export default async function Page() {
 
   if (session) {
     const username = session.user.username;
-    redirect(`/${username}`);
+    redirect(`/profile/${username}`);
   }
 
   return (
