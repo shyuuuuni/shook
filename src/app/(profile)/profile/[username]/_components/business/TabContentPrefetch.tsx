@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { gitHubQueryOptions } from '../_queries/gitHub';
+import { gitHubQueryOptions } from '../../_queries/gitHub';
 
 type TabContentPrefetchProps = {
   username: string;

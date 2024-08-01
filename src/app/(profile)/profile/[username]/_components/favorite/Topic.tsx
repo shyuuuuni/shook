@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { BLUR_IMAGE_DATAURL } from '@/libs/image';
-import { Topic as TopicType } from '../_types/action';
+import { Topic as TopicType } from '../../_types/favorite';
 import * as styles from './Topic.css';
 
 type TopicProps = {

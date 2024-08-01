@@ -1,9 +1,9 @@
 import * as styles from './UserPage.css';
 import TabContent from './_components/TabContent';
-import TabContentPrefetch from './_components/TabContentPrefetch';
 import Tabs from './_components/Tabs';
-import { ProfileSection } from './_components/profile';
-import TabProvider from './_components/providers/TabProvider';
+import TabContentPrefetch from './_components/business/TabContentPrefetch';
+import TabProvider from './_components/business/TabProvider';
+import ProfileSection from './_components/profile/ProfileSection';
 
 type UserPageProps = {
   params: {

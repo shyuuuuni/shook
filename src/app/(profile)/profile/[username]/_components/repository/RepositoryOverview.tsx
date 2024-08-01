@@ -1,7 +1,5 @@
 'use client';
 
-import { useRepositories } from '../_hooks/useGitHubQuery';
-import RepositoryArticle from './RepositoryArticle';
 import * as styles from './RepositoryOverview.css';
 
 export default function RepositoryOverview() {

@@ -14,7 +14,7 @@ const tabList: {
   label: string;
 }[] = [
   { tabType: 'repository', label: 'Repository' },
-  { tabType: 'insight', label: 'Insight' },
+  { tabType: 'favorite', label: 'Favorite' },
   { tabType: 'activity', label: 'Activity' },
 ];
 

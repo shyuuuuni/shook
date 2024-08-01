@@ -1,4 +1,4 @@
-import { Metric } from '../_types/action';
+import { Metric } from '../../_types/favorite';
 import CollapsibleReadme from './CollapsibleReadme';
 import * as styles from './RepositoryMetric.css';
 

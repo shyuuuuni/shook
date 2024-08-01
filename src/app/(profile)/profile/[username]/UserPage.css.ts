@@ -12,7 +12,10 @@ export const innerContainer = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: CONTENT_MAX_WIDTH,
+  maxWidth: CONTENT_MAX_WIDTH,
+  flex: '1',
+  borderLeft: '1px solid hsla(0, 0%, 0%, .1)',
+  borderRight: '1px solid hsla(0, 0%, 0%, .1)',
 });
 
 export const profileSection = style({
@@ -27,4 +30,5 @@ export const tabs = style({
 export const main = style({
   display: 'flex',
   flexDirection: 'column',
+  padding: '0 32px',
 });

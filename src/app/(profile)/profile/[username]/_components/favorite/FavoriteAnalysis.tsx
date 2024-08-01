@@ -1,11 +1,11 @@
-import * as styles from './StarredPage.css';
-import StarredAnalysis from './_components/StarredAnalysis';
-import StarredRepositoryMetrics from './_components/StarredRepositoryMetrics';
-import StarredTopics from './_components/StarredTopics';
+import * as styles from './FavoriteAnalysis.css';
+import StarredAnalysis from './StarredAnalysis';
+import StarredRepositoryMetrics from './StarredRepositoryMetrics';
+import StarredTopics from './StarredTopics';
 
-export default async function StarredPage() {
+export default function FavoriteAnalysis() {
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <h1 className={styles.h1}>Starred Metric Analyzer</h1>
       <section className={styles.section}>
         <h2 className={styles.h2}>View analysis</h2>
@@ -18,6 +18,6 @@ export default async function StarredPage() {
           <StarredRepositoryMetrics />
         </div>
       </section>
-    </main>
+    </div>
   );
 }

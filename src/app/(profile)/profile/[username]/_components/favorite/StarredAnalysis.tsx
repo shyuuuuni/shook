@@ -1,6 +1,6 @@
 'use client';
 
-import useAnalyze from '../_hooks/useAnalyze';
+import useAnalyze from '../../_hooks/useAnalyze';
 import * as styles from './StarredAnalysis.css';
 
 export default function StarredAnalysis() {

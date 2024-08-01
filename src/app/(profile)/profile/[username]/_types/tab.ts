@@ -1,4 +1,4 @@
-export type Tab = 'repository' | 'insight' | 'activity';
+export type Tab = 'repository' | 'favorite' | 'activity';
 export const isTab = (tab: unknown): tab is Tab =>
   typeof tab === 'string' &&
-  ['repository', 'insight', 'activity'].includes(tab);
+  ['repository', 'favorite', 'activity'].includes(tab);

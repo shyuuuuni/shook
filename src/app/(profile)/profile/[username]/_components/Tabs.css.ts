@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import openColor from 'open-color';
 
 export const tabsList = style({
   flexShrink: 0,
@@ -17,15 +18,16 @@ export const tabsTrigger = style({
   justifyContent: 'center',
   fontSize: 15,
   lineHeight: 1,
-  color: 'purple',
+  color: openColor.gray[7],
   userSelect: 'none',
   ':hover': {
-    color: 'violet',
+    backgroundColor: openColor.gray[1],
     cursor: 'pointer',
   },
   selectors: {
     '&[data-state="active"]': {
-      color: 'violet',
+      color: openColor.gray[9],
+      fontWeight: 700,
       boxShadow: 'inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor',
     },
   },

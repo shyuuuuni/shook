@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { match, P } from 'ts-pattern';
 import { TabContext } from '../../_hooks/useTab';
 import { Tab, isTab } from '../../_types/tab';
+import * as styles from './TabProvider.css';
 
 type TabProviderProps = {
   children?: React.ReactNode;
@@ -30,7 +31,11 @@ export default function TabProvider({ children }: TabProviderProps) {
   };
 
   return (
-    <ReactTabs.Root value={tab} onValueChange={handleValueChange}>
+    <ReactTabs.Root
+      className={styles.tabProvider}
+      value={tab}
+      onValueChange={handleValueChange}
+    >
       <TabContext.Provider value={tab}>{children}</TabContext.Provider>
     </ReactTabs.Root>
   );
