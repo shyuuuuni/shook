@@ -1,4 +1,3 @@
-import GitHubRateLimit from '@/components/github/GitHubRateLimit';
 import Header from '@/components/header/Header';
 
 export default function Layout({
@@ -10,7 +9,6 @@ export default function Layout({
     <>
       <Header />
       {children}
-      <GitHubRateLimit />
     </>
   );
 }
