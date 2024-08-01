@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import UserSearchDialog from './UserSearchDialog';
-import UserSearchTriggerButton from './UserSearchTriggerButton';
+import UserSearchTrigger from './UserSearchTrigger';
 
 export default function UserSearch() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function UserSearch() {
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <UserSearchTriggerButton />
+      <UserSearchTrigger />
       <UserSearchDialog onUserSelect={handleUserSelect} />
     </Dialog.Root>
   );

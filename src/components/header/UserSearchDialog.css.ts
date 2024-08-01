@@ -48,7 +48,7 @@ export const searchForm = style({
 });
 
 export const overlay = style({
-  backgroundColor: OpenColor.cyan[3],
+  backgroundColor: OpenColor.gray[8],
   opacity: 0.1,
   position: 'fixed',
   inset: 0,

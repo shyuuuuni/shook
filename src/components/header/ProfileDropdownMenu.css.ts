@@ -11,9 +11,9 @@ export const content = style({
 
 export const label = style({
   fontSize: '12px',
-  fontWeight: '300',
+  fontWeight: '700',
   lineHeight: '25px',
-  color: openColor.cyan[4],
+  color: openColor.gray[8],
 });
 
 export const item = style({
@@ -30,8 +30,7 @@ export const item = style({
   outline: 'none',
   selectors: {
     '&[data-highlighted]': {
-      backgroundColor: openColor.cyan[3],
-      color: openColor.white,
+      backgroundColor: openColor.gray[1],
     },
   },
 });

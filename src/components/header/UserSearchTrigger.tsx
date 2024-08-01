@@ -1,8 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import * as styles from './UserSearchTriggerButton.css';
+import * as styles from './UserSearchTrigger.css';
 
-export default function UserSearchTriggerButton() {
+export default function UserSearchTrigger() {
   return (
     <Dialog.Trigger asChild>
       <button className={styles.triggerButton}>
