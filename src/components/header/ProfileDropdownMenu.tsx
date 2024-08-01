@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import Link from 'next/link';
 import { match, P } from 'ts-pattern';
 import { auth } from '@/libs/next-auth';
 import AuthTrigger from '../business/AuthTrigger';
@@ -31,7 +32,7 @@ export default async function ProfileDropdownMenu() {
               @{user.username}
             </DropdownMenu.Label>
             <DropdownMenu.Item className={styles.item}>
-              Your shook page
+              <Link href={`/${user.username}`}>Your shook page</Link>
             </DropdownMenu.Item>
             <DropdownMenu.Separator className={styles.separator} />
             <DropdownMenu.Item className={styles.item}>

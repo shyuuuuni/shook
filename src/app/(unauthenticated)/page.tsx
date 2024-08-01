@@ -8,7 +8,8 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
 
   if (session) {
-    redirect('/dashboard/starred');
+    const username = session.user.username;
+    redirect(`/${username}`);
   }
 
   return (
