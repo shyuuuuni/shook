@@ -1,2 +1,2 @@
-export { default as authOptions } from './authOptions';
-export { default as getAccessToken } from './getAccessToken';
+export * from './authOptions';
+export * from './token';
