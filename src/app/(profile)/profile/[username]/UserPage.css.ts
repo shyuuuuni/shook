@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { CONTENT_MAX_WIDTH } from '@/styles/constants';
 
 export const outerContainer = style({
   width: '100%',
@@ -11,7 +12,7 @@ export const innerContainer = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  maxWidth: 1280,
+  width: CONTENT_MAX_WIDTH,
 });
 
 export const profileSection = style({
