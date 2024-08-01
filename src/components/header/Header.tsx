@@ -1,5 +1,6 @@
 import * as styles from './Header.css';
 import Logo from './Logo';
+import ProfileDropdown from './ProfileDropdown';
 import UserSearch from './UserSearch';
 
 export default function Header() {
@@ -11,7 +12,7 @@ export default function Header() {
         </div>
         <div className={styles.rightNavItems}>
           <UserSearch />
-          <div>profile</div>
+          <ProfileDropdown />
         </div>
       </nav>
     </header>

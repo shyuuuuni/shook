@@ -1,4 +1,4 @@
-import * as Avatar from '@radix-ui/react-avatar';
+import ProfileAvatar from '@/components/github/ProfileAvatar';
 import { formatISODateToYYYYMMDD } from '@/libs/time';
 import { GitHubUser } from '@/types/github';
 import * as styles from './UserProfile.css';
@@ -12,13 +12,7 @@ export default function UserProfile({
 }: UserProfileProps) {
   return (
     <div className={styles.container}>
-      <Avatar.Root className={styles.avatarContainer}>
-        <Avatar.Image
-          className={styles.avatar}
-          src={avatar_url}
-          alt={`${username} 프로필 이미지`}
-        />
-      </Avatar.Root>
+      <ProfileAvatar imageUrl={avatar_url} username={username} />
       <div className={styles.profileContainer}>
         <div className={styles.name}>{name}</div>
         <a className={styles.username} target="_blank" href={html_url}>

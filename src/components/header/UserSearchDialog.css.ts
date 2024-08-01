@@ -44,6 +44,7 @@ export const searchForm = style({
   padding: '0 16px',
   borderRadius: '8px',
   fontSize: '32px',
+  boxShadow: `inset 1px 1px 0 0 hsla(0, 0%, 100%, 0.5), 0 3px 8px 0 ${OpenColor.gray[5]}`,
 });
 
 export const overlay = style({
@@ -64,6 +65,7 @@ export const icon = style({
   width: '0.8em',
   height: '0.8em',
   marginRight: '8px',
+  cursor: 'pointer',
 });
 
 export const searchInput = style({

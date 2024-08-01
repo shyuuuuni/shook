@@ -17,7 +17,7 @@ export const nav = style({
 export const navItemsBase = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '1rem',
+  gap: '16px',
 });
 
 export const leftNavItems = style([navItemsBase]);
