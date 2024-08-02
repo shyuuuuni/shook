@@ -5,6 +5,7 @@ export const container = style({
   border: '1px solid #ddd',
   borderRadius: '8px',
   backgroundColor: '#f9f9f9',
+  marginBottom: '20px',
 });
 
 export const button = style({
