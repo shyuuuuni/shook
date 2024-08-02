@@ -1,5 +1,4 @@
 import GitHubService from '@/backend/services/GitHubService';
-import { getAccessToken } from '@/libs/next-auth';
 import UserProfile from './UserProfile';
 
 type ProfileSectionProps = {
@@ -11,8 +10,9 @@ export default async function ProfileSection({
   username,
   className,
 }: ProfileSectionProps) {
-  const accessToken = await getAccessToken();
-  const gitHubService = new GitHubService(accessToken);
+  const gitHubService = new GitHubService(
+    process.env.GITHUB_COMMON_ACCESS_TOKEN,
+  );
   const user = await gitHubService.getUserByUsername({ username });
 
   return (

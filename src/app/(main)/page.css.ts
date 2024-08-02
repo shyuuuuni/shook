@@ -7,7 +7,6 @@ export const main = style({
   alignItems: 'center',
   height: '100vh',
   textAlign: 'center',
-  backgroundColor: '#f0f0f0',
   padding: '20px',
 });
 
