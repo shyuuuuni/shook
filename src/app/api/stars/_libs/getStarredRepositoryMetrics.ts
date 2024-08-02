@@ -2,7 +2,7 @@ import parse from 'node-html-parser';
 import {
   Metric,
   StarredRepositoryMetrics,
-} from '@/app/(authenticated)/dashboard/starred/_types/action';
+} from '@/app/(profile)/profile/[username]/_types/favorite';
 import clovaStudioService from '@/backend/services/ClovaStudioService';
 import GitHubService from '@/backend/services/GitHubService';
 import { QUERY_FOLLOWUP_REPOSITORY_STARRED } from '@/libs/metrics/queries';

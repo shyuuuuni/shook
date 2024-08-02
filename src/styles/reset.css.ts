@@ -1,4 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
+import openColor from 'open-color';
 
 globalStyle(
   `html, body, div, span, applet, object, iframe,
@@ -21,6 +22,7 @@ globalStyle(
     fontSize: '100%',
     font: 'inherit',
     verticalAlign: 'baseline',
+    color: openColor.gray[8],
   },
 );
 

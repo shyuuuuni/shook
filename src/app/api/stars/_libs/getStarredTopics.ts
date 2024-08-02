@@ -1,5 +1,5 @@
 import parse from 'node-html-parser';
-import { Topic } from '@/app/(authenticated)/dashboard/starred/_types/action';
+import { Topic } from '@/app/(profile)/profile/[username]/_types/favorite';
 import GitHubService from '@/backend/services/GitHubService';
 import { getAccessToken } from '@/libs/next-auth';
 

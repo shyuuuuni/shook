@@ -1,7 +1,7 @@
-import type { AuthOptions } from 'next-auth';
+import { getServerSession, type AuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
@@ -10,17 +10,24 @@ const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
-      if (account) {
+    async jwt({ token, account, profile }) {
+      // server-side only
+      if (account && account.access_token) {
         token.accessToken = account.access_token;
       }
+      if (profile) {
+        token.username = profile.login;
+      }
+
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
+      //client-side and server-side
+      session.user.username = token.username;
+
       return session;
     },
   },
 };
 
-export default authOptions;
+export const auth = () => getServerSession(authOptions);

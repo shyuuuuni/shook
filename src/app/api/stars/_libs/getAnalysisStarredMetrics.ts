@@ -1,7 +1,7 @@
 import {
-  Metric,
   Topic,
-} from '@/app/(authenticated)/dashboard/starred/_types/action';
+  Metric,
+} from '@/app/(profile)/profile/[username]/_types/favorite';
 
 export const formatMetrics = (
   topics: Topic[],
