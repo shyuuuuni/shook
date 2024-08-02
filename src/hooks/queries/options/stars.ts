@@ -2,7 +2,7 @@ import { UseQueryOptions, QueryKey } from '@tanstack/react-query';
 import {
   Metric,
   Topic,
-} from '@/app/(authenticated)/dashboard/starred/_types/action';
+} from '@/app/(profile)/profile/[username]/_types/favorite';
 import { API_URL } from '@/configs/env';
 
 const starsApiRoutes = {

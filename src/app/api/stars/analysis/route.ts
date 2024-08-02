@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
-  Metric,
   Topic,
-} from '@/app/(authenticated)/dashboard/starred/_types/action';
+  Metric,
+} from '@/app/(profile)/profile/[username]/_types/favorite';
 import clovaStudioService from '@/backend/services/ClovaStudioService';
 import { PROMPT_ANALYZE_USER_STARRED } from '@/configs/prompt';
 import { formatMetrics } from '../_libs/getAnalysisStarredMetrics';
